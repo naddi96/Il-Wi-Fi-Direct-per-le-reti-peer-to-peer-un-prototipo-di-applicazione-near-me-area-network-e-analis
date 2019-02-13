@@ -1,3 +1,6 @@
+
+
+
 \chapter{App messaggistica in Wi-fi Direct}
 
 \begin{minipage}{12cm}\textit{In questo studio di tesi è stata sviluppata un'app per
@@ -20,8 +23,9 @@ non vietano ad un dispositivo di partecipare a più gruppi contemporaneamente.
 Tuttavia allo stato attuale in Android  un dispositivo non 
 può far parte di due o più gruppi
 nello stesso istante di tempo,
-di consequenza la fase di discovery deve essere riavviata 
-prima della della connessione.
+di consequenza se ci si vuole connettere a un'altro gruppo
+bisogna sconnetersi da quello a cui si è connessi, riavviare la fase di discovery
+e connettersi a gruppo desiderato.
 
 Il Wi-Fi P2P su Android a livello implementativo, è composto da un insieme di
 funzioni disponibili al programmatore, chiamate API e che sono divise in tre parti
@@ -34,18 +38,21 @@ principali:
 \end{figure}
 
 \begin{itemize}
-    \item tutti i metodi definiti nella classe WifiP2pManager che consentono la scansione,
+    \item tutti i metodi definiti nella classe WifiP2pManager che 
+    consentono la scansione,
     richiesta e connessione con i peer;
-    \item i listener, “oggetti” che permettono di notificare stati di “successo” o
+    \item i listener, “oggetti” che permettono di notificare 
+    stati di “successo” o
     “fallimento” quando si eseguono metodi della classe WifiP2pManager;
-    \item Intent che notificano per ogni specifico evento rilevato dal device, come ad
+    \item Intent che notificano per ogni 
+    specifico evento rilevato dal device, come ad
     esempio se la connessione cade, se un peer è stato appena scoperto ecc.
 \end{itemize}
 Qui di seguito in figura, sono esposti i metodi della classe WifiP2pManager.
 Ogni metodo della classe WifiP2pManager è collegato a un listener, il quale a
 seconda dell’esito della chiamata del metodo, si occupa di avvisare con un
 messaggio di successo o fallimento.
-Inoltre le APi di Wi-Fi P2P definiscono degli intent che, registrati su un
+Inoltre le API del Wi-Fi P2P definiscono degli intent che, registrati su un
 BroadcastReceiver, permettono all’applicazione di rilevare gli eventi che
 accadono in un preciso istante.
 \begin{figure}
@@ -64,33 +71,36 @@ accadono in un preciso istante.
     \includegraphics[width=1\columnwidth]{imgs/discoveryStart.png} % Example image
 \end{figure}
 ho utilizzato le API di Android Software Development Kit (SDK)
-\cite{ASD} in Android Studio \cite{ASD} per lo sviluppo di questa applicazione
+ in Android Studio \cite{ASD} per lo sviluppo di questa applicazione
 \subsection{Descrizione alto livello}
 
 
 L'applicazione prevede la comunicazione tra due dispositivi android,
-quest'ultimi eseguono uno scan e una volta che si sono trovati 
+quest'ultimi entrano nella fase di discovery e una volta che si sono trovati 
 possono instaurare una connessione,
 che una volta stabilita aprirà un canale di comunicazione bidirezionale tra i due.
 I due dispositivi adesso possono scambiare i messaggi.
+
+
 \subsection{Fase di scan}
 \begin{figure}
     \caption{listener dei peer}
     \centering
-    \includegraphics[width=.49\columnwidth]{imgs/peerListener.png}% Example image
+    \includegraphics[width=1\columnwidth]{imgs/peerListener.png}% Example image
 \end{figure}
+
 
 per iniziare la fase di scan si utilizza mManager, un
 oggetto che abbiamo istanziato nella MainActivity
 di tipo WifiP2pManager,questa classe ci fornisce le API per gestire le connessioni
 Wi-Fi P2P \cite{androiddevelopers},
-come possiamo vedere dalla figura 3.1.
+come possiamo vedere dalla figura 3.3.
 Per ricavare la lista dei peer (dispositivi vicini)
  si utilizza un listener, 
 che ogni volta rileva un nuovo peer lo salva nel suo database 
 interno al dispositivo e lo 
 visualizza su schermo insieme agli altri, il codice è mostrato
- in figura 3.2
+ in figura 3.4
 
 
 \subsection{Instaurazione della connessione e selezione del Go}
@@ -101,20 +111,20 @@ Una volta che l'utente ha su schermo la lista dei dispositivi
 vicini può scegliere il dispoitivo con il quale comunicare
 semplicemente cliccandoci sopra il dispositivo proverà a 
 connettersi al device selezionato usando il metodo "connect" 
-della classe "WifiP2pManager" si vede dalla figura 3.3.
+della classe "WifiP2pManager" si vede dalla figura 3.5.
 \begin{figure}
     \caption{richiesta connessione}
-    \includegraphics[width=1.4\columnwidth]{imgs/Connect.png}
+    \includegraphics[width=1\columnwidth]{imgs/Connect.png}
 \end{figure}
 
 Dopo di che entra in gioco il listener della connessione.
-in quest'ultimo verà scelta la classe da avviare 
+In quest'ultimo verà scelta la classe da avviare 
 (client o server)in base al dispositivo che è 
-diventato GO come si vede nel codice in figura 3.4.
+diventato GO come si vede nel codice in figura 3.6.
 
 \begin{figure}
     \caption{}
-    \includegraphics[width=1.2\columnwidth]{imgs/listenerConeessione.png}
+    \includegraphics[width=1\columnwidth]{imgs/listenerConeessione.png}
 \end{figure}
 
 \subsection{Scambio di messaggi}
@@ -127,7 +137,7 @@ attraverso la classe SendReceive come vedremo più avanti
 
 \begin{figure}
     \caption{server class}
-    \includegraphics[width=0.6\columnwidth]{imgs/serverClass.png}
+    \includegraphics[width=0.8\columnwidth]{imgs/serverClass.png}
     \centering
 \end{figure}
 
@@ -141,7 +151,7 @@ attraverso la classe SendReceive come vedremo più avanti.
     
 \begin{figure}
     \caption{client class}
-    \includegraphics[width=0.7\columnwidth]{imgs/clientClass.png}
+    \includegraphics[width=1\columnwidth]{imgs/clientClass.png}
     \centering
 \end{figure}
 
@@ -151,14 +161,15 @@ SendReceive si occupa di inviare i messaggi all'altro dispoitivo
 e di ricerverli;
 per inviarli utilizza il metodo write che scrive 
 sull'output stream della socket
-per riceverli controlla continuamente con un ciclo l'input stream
+per riceverli controlla continuamente l'input stream
 della socket
 
 
 \subsection{Crittografia usata}
-Sebbene Wi-Fi Direct utilizza Wpa2 che usa una crittografia di tipo AES 
-nell'app si è voluto aggiungere un ulteriore layer di crittografia implemetato a livello
-software.
+Sebbene Wi-Fi Direct utilizza  che usa una crittografia di tipo 
+AES \cite{Wi-FiProtected}
+nell'app si è voluto aggiungere un ulteriore layer di crittografia 
+implemetato a livello software.
 Per criptare i messaggi è stata usata la libreria 
 Spongy Castle \cite{Spongy} questa libreria è stata derivata
 da Bouncy Castle inquanto  
@@ -178,7 +189,7 @@ invece ce ne sono 4:
     inizializza la coppia di chiavi publica e privata. 
     \begin{figure}
         \caption{costruttore della classe Cript}
-        \includegraphics[width=0.8\columnwidth]{imgs/Criptconstructor.jpg}
+        \includegraphics[width=1\columnwidth]{imgs/Criptconstructor.jpg}
     \end{figure}
 
     \item setHisKey() prende in input la chiave publica dell'altro dispsitivo
@@ -186,7 +197,7 @@ invece ce ne sono 4:
     nel campo "hispub".
     \begin{figure}
         \caption{setter del campo hispub}
-        \includegraphics[width=0.9  \columnwidth]{imgs/sethiskey.jpg}
+        \includegraphics[width=1  \columnwidth]{imgs/sethiskey.jpg}
     \end{figure}
 
 
@@ -196,7 +207,7 @@ invece ce ne sono 4:
     encodato in base64.
     \begin{figure}
         \caption{metodo per criptare il messaggio}
-        \includegraphics[width=0.5  \columnwidth]{imgs/encript.jpg}
+        \includegraphics[width=0.8  \columnwidth]{imgs/encript.jpg}
     \end{figure}
 
     \item decript() prende in input il messaggio da decriptare encodato in base64 
@@ -204,7 +215,7 @@ invece ce ne sono 4:
     la sua chiave privata e ritorna il messaggio decriptato.
     \begin{figure}
         \caption{metodo per decriptare il messaggio}
-        \includegraphics[width=0.6  \columnwidth]{imgs/decript.jpg}
+        \includegraphics[width=1  \columnwidth]{imgs/decript.jpg}
     \end{figure}
 
 
@@ -236,8 +247,9 @@ I test che ho fatto inoltre hanno mostrato il limite della portata
 del Wi-Fi Direct si è osservato che fino a 64 metri
 (all'aperto e senza ostacoli) i dispositivi
 si connettevano e riuscivano a scambiare messaggi  mentre a 128 metri
-mentri sebbene i disponibili si connettavano non riuscivano
-a mantenere la connessione non riuscendo di fatto a scambiarsi messaggi.
+mentri sebbene i disponibili si vedessero (con difficoltà) non riuscivano
+a stabilire una connessione non riuscendo quindi neanche a scambiarsi messaggi,
+per questo motivo i test a questa distanza non sono stati ritportati nella tabella.
 Di seguito riporteremo i vari test sulle varie distanze con i tempi (in secondi)di:
 discover,group formation,e trasferimento di un paylod da 10MByte.
 Un altro limite del Wi-Fi Direct è il consumo di una batteria che risulta
@@ -263,39 +275,37 @@ diventare Group owner, una volta che i dispositivi sono connessi
 si procede con l'invio del payload e registrazione del tempo impiegato.
 
 %https://www.tablesgenerator.com/latex_tables
-\begin{table}[]
+\begin{table}
     \centering
     \begin{tabular}{|c|c|c|c|}
     \hline
-    \begin{tabular}[c]{@{}c@{}}Distanze\\ in\\  metri\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tempo\\ (in secondi)\\ Discovery\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tempo\\ (in secondi)\\ formazione \\ gruppo\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tempo\\ (in secondi)\\ invio \\ payload\\ di 10 Mbyte\end{tabular} \\ \hline
-    0                                                              & 2.42                                                                     & 1.84                                                                                & 2.5                                                                                           \\ \hline
-    4                                                              & 1.45                                                                     & 1.27                                                                                & 5.25                                                                                          \\ \hline
-    8                                                              & 1.04                                                                     & 0.94                                                                                & 5.8                                                                                           \\ \hline
-    16                                                             & 0.1                                                                      & 1.44                                                                                & 12.4                                                                                          \\ \hline
-    32                                                             & \multicolumn{1}{l|}{}                                                    &                                                                                     &                                                                                               \\ \hline
-    64                                                             & \multicolumn{1}{l|}{}                                                    &                                                                                     &                                                                                               \\ \hline
-    128                                                            & \multicolumn{1}{l|}{}                                                    &                                                                                     &                                                                                               \\ \hline
+    \begin{tabular}[c]{@{}c@{}}Distanze\\ in\\ metri\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tempo \\ (in secondi)\\ Discovery\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tempo\\ (in secondi)\\ formazione\\ gruppo\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tempo\\ (in secondi)\\ invio\\ payload \\ di 10 Mbyte\end{tabular} \\ \hline
+    0                                                             & 2.42                                                                      & 1.84                                                                               & 2.5                                                                                           \\ \hline
+    4                                                             & 1.45                                                                      & 1.27                                                                               & 5.25                                                                                          \\ \hline
+    8                                                             & 1.04                                                                      & 0.94                                                                               & 5.8                                                                                           \\ \hline
+    16                                                            & 0.1                                                                       & 1.44                                                                               & 12.4                                                                                          \\ \hline
+    32                                                            & 4,6                                                                       & 1.6                                                                                & 14,6                                                                                          \\ \hline
+    64                                                            & 1,12                                                                      & 1.42                                                                               & 17,6                                                                                          \\ \hline
     \end{tabular}
     \end{table}
 
-\section{Conclusioni}
-In questa tesi inizialmente si è visto cosa è una Near-Me area network e
-si è fatta un apanoramica sulle reti peer to peer come si correlassero
-con il Wi-fi Direct; successivamente siamo andati ad approfondire le specifiche
-dello standard del Wi-Fi Direct andando ad analizzarne il
- funzionamento vero e proprio.
-Dopo questa parte si è passati allo studio del Wi-Fi Direct
-in android e la spiegazione dell'implementazione
-proposta di un'app ,svliuppata per questo studio di tesi,
-che usa il Wi-Fi Direct per lo scambio di messaggi 
-tra due dispotivi.
-Successivamente siamo andati a testare le performance del Wi-Fi Direct
-atraverso un'altra app sviluppata appositamente per lo scopo.
-Da questo studio di tesi è emerso che allo stato attuale 
-non è possibile costruire una rete peer to peer
-attraverso il Wi-Fi Direct ma più tosto è più orientato
-per connessioni peer to peer.
-\section{Sviluppi futuri}
+    \chapter*{Conclusioni}
+    In questa tesi inizialmente si è visto cosa è una Near-Me area network e
+    si è fatta un apanoramica sulle reti peer to peer come si correlassero
+    con il Wi-fi Direct; successivamente siamo andati ad approfondire le specifiche
+    dello standard del Wi-Fi Direct andando ad analizzarne il
+     funzionamento vero e proprio.
+    Dopo questa parte si è passati allo studio del Wi-Fi Direct
+    in android e la spiegazione dell'implementazione
+    proposta di un'app ,svliuppata per questo studio di tesi,
+    che usa il Wi-Fi Direct per lo scambio di messaggi 
+    tra due dispotivi.
+    Successivamente siamo andati a testare le performance del Wi-Fi Direct
+    atraverso un'altra app sviluppata appositamente per lo scopo.
+    Da questo studio di tesi è emerso che allo stato attuale 
+    non è possibile costruire una rete peer to peer
+    attraverso il Wi-Fi Direct ma più tosto è più orientato
+    per connessioni peer to peer.
 
 
 
