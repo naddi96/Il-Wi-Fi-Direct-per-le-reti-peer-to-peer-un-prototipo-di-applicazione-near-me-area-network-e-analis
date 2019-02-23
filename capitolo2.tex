@@ -18,7 +18,6 @@ utilizzato in diverse
 applicazioni come trasferimento di file, condivisione di risorse, giochi
 online, diffusione di
 allerta, social networking, ecc.}
-
 \end{minipage}
 
 \vspace*{1cm}
@@ -29,7 +28,6 @@ allerta, social networking, ecc.}
 \caption{rete Wi-Fi Direct}
 \includegraphics[width=1\columnwidth]{imgs/wifip2pnet.jpg} % Example image
 \end{figure}
-
 
 \label{sec:sezioni}
 Wi-Fi Alliance ha introdotto nel 2010 la tecnologia Wi-Fi Direct per consentire
@@ -42,12 +40,10 @@ IEEE 802.11 e offre una comunicazione dispositivo-dispositivo diretta, sicura e
 rapida. Il recente
 Wi-Fi P2P Technical Specification \cite{alliance2016wi} è stato rilasciato nel
 2016 (versione 1.7).
-I dispositivi abilitati Wi-Fi Direct si scoprono e formano un gruppo P2P. In
+I dispositivi abilitati Wi-Fi Direct si scoprono e formano un \textsc{gruppo P2P}. In
 ciascun gruppo P2P,
-un nodo eletto, chiamato Group Owner (GO) P2P, funge da AP.
-
-
-Wi-Fi Direct consente a dispositivi Wi-Fi come smartphone, laptop, smart TV,
+un nodo eletto, chiamato \textsc{Group Owner (GO) P2P}, funge da AP.
+Il Wi-Fi Direct consente a dispositivi Wi-Fi come smartphone, laptop, smart TV,
 stampanti, fotocamere e altri dispositivi di connettersi in modo rapido e
 comodo senza
 l'aggiunta di un Access Point (AP). Wi-Fi Direct è basato sulla
@@ -58,21 +54,16 @@ Wi-Fi Direct supporta le stesse elevate velocità di trasmissione dati del Wi-Fi
 (fino a 250 Mbps).
 La portata della connessione Wi-Fi Direct è di 200 metri (questa è la portata
 teorica e la portata
-pratica potrebbe essere minore). Le specifiche richiedono inoltre una
+pratica potrebbe essere minore come vedremo nei test effettuati). Le specifiche richiedono inoltre una
 connessione
-1: 1 obbligatoria per i dispositivi certificati Wi-Fi Direct, in cui mantenere
-la funzione
-opzionale 1: N. Nelle sezioni successive,
+1:1 obbligatoria per i dispositivi certificati Wi-Fi Direct, in cui mantenere
+la funzione opzionale 1:N. Nelle sezioni successive,
 forniamo una panoramica dettagliata delle funzionalità Wi-Fi Direct.
-
-
 
 \section{Architettura di rete}
 
-
-
 L'entità funzionale dell'architettura Wi-Fi Direct è denominata
-"Gruppo P2P" che è funzionalmente equivalente a un Basic Service Set
+\textsc{Gruppo P2P} che è funzionalmente equivalente a un Basic Service Set
 (BSS) nella rete Wi-Fi legacy. Un gruppo P2P è costituito da un proprietario
 di un gruppo P2P (P2P GO) e zero o più client P2P. Il P2P GO
 è anche chiamato Soft-AP. Le funzioni AP sono implementate nei dispositivi P2P
@@ -85,26 +76,20 @@ di creare un gruppo P2P e rimangono fissi mentre il gruppo P2P è attivo. La
 Figura 2.1 illustra
 i diversi ruoli dei dispositivi P2P.
 
-
-
 \section{Device Discovery}
 
-
-
-
-Device Discovery è una funzione obbligatoria che deve essere supportata
+\textsc{Device Discovery} è una funzione obbligatoria che deve essere supportata
 da tutti i dispositivi P2P. Prima di formare un gruppo P2P, un dispositivo
 P2P esegue la procedura Rilevamento dispositivo per rilevare la presenza di
 altri dispositivi P2P nel suo intervallo wireless. La procedura consiste in
-due fasi distinte: Scansione e Trova. Nella fase di scansione, il dispositivo
+due fasi distinte: \textsc{Scansione} e \textsc{Trova}. Nella fase di scansione, il dispositivo
 P2P esegue la tradizionale scansione Wi-Fi (scansione passiva) attraverso
 tutti i canali supportati al fine di raccogliere informazioni sui dispositivi
 circostanti, i gruppi P2P e le reti Wi-Fi legacy. Una volta completata la
 fase di scansione, il dispositivo entra nella fase di ricerca. Nella
-fase di ricerca, il dispositivo P2P si alterna tra due stati: Cerca
-e Ascolta. Nello stato Cerca, il dispositivo P2P invia uno o più
+fase di ricerca, il dispositivo P2P si alterna tra due stati: \textsc{Cerca}
+e \textsc{Ascolta}. Nello stato Cerca, il dispositivo P2P invia uno o più
 frame Probe Request (PREQ)
-
 sul canale social, ovvero i canali 1, 6 e 11 nella banda dei 2,4 GHz.
 Nello stato di ascolto, il dispositivo P2P si sofferma su uno dei canali
 social (1, 6 e 11) chiamato canale Listen e attende i frame Probe Request
@@ -113,19 +98,18 @@ social (1, 6 e 11) chiamato canale Listen e attende i frame Probe Request
 È evidente che il processo di Rilevamento dispositivo P2P può indurre
 qualche ritardo a un dispositivo P2P per scoprire tutti i
 dispositivi P2P nella sua posizione iniziale. Questo ritardo, definito
-"Ritardo rilevamento dispositivo", può essere relativamente elevato se
+\textsc{Ritardo rilevamento dispositivo}, può essere relativamente elevato se
 diversi dispositivi P2P eseguono contemporaneamente Rilevamento dispositivo
 nello stesso intervallo wireless. La figura 2.2 illustra la procedura di
 rilevamento dei dispositivi P2P in Wi-Fi Direct.
-
 \begin{figure}
 \caption{Fase di discovery}
 \includegraphics[width=1\columnwidth]{imgs/DeviceDiscovery.jpg} % Example image
 \end{figure}
 
-
 \section{Service Discovery}
-Service Discovery è una
+
+\textsc{Service Discovery} è una
 procedura opzionale in Wi-Fi Direct. La procedura inizia dopo il
 rilevamento dei dispositivi e prima della procedura di formazione dei
 gruppi. Consente a un dispositivo P2P di connettersi ad altri dispositivi
@@ -136,10 +120,6 @@ i servizi disponibili utilizzando il protocollo GAS
 Wi-Fi Alliance ha definito una serie di servizi standard supportati
 da Wi-Fi Direct come Play, Send e Print \cite{wi-fialliance}
 
-
-
-
-
 \section{Formazione Gruppi}
 
 In seguito al successo di Device Discovery (procedura obbligatoria) e
@@ -147,9 +127,8 @@ Service Discovery (procedura facoltativa), i dispositivi P2P  possono
 stabilire il gruppo P2P. Durante la Formazione di gruppo, il dispositivo
 sarà GO sarà determinato . Come descritto in Figura 2.3 ci sono
 tre schemi di formazione dei gruppi P2P possibili in
-
-Wi-Fi Direct: (1) Formazione di gruppo standard (2) Formazione di
-gruppi autonomi e (3) Formazione di gruppi permanenti. Nella formazione
+Wi-Fi Direct: (1)\textsc{Formazione di gruppo standard} (2) \textsc{Formazione di
+gruppi autonomi} e (3) \textsc{Formazione di gruppi permanenti}. Nella formazione
 di gruppi standard, presentata nella figura 2.3,  due dispositivi P2P
 negozieranno
 tra loro il chi sarà GO . La negoziazione del GO è un handshake a
@@ -161,13 +140,10 @@ diventa GO.Nel caso in cui entrambi i dispositivi inviano
 lo stesso Intent value, viene utilizzato
 un bit di breaker per la decisione e il dispositivo con il bit breaker  
 impostato a uno diventa il GO.
-
 \begin{figure}
 \caption{tipi di gruppi Wi-Fi Direct}
 \includegraphics[width=1\columnwidth]{imgs/wifiGroup.jpg} % Example image
 \end{figure}
-
-
 La Figura 2.4 mostra il confronto del valore
 dell'Intent tra due dispositivi P2P durante la Formazione di gruppi
 standard. Il dispositivo P2P selezionato come P2P GO avvierà una
@@ -195,7 +171,6 @@ formato.
 \caption{comparazione Intent Value}
 \includegraphics[width=0.9\columnwidth]{imgs/intentValueComparison.jpg} %
 %Example image
-
 \end{figure}
 Per stabilire un gruppo persistente, i dispositivi P2P
 devono dichiarare il gruppo P2P come persistente durante la formazione
@@ -215,7 +190,7 @@ possono essere aggiunti, a gruppi P2P formati in precedenza.
 
 \section{Sicurezza}
 
-Wi-Fi Direct richiede a tutti i dispositivi P2P di
+Il Wi-Fi Direct richiede a tutti i dispositivi P2P di
 implementare Wi-Fi Protected Setup (WPS) \cite{WPS} al fine di
 proteggere il processo di creazione della connessione e della
 la comunicazione nel Gruppo P2P. Nello schema WPS, il
@@ -231,15 +206,15 @@ nuove credenziali
 \section{Risparmio energetico}
 
 Il Wi-Fi legacy utilizza il risparmio energetico utilizzando le modalità
-Sleep e Active per gli STA Wi-Fi (client). La maggior parte degli AP
+\textsc{Sleep} e \textsc{Active} per gli STA Wi-Fi (client). La maggior parte degli AP
 tradizionali sono permanentemente collegati a una normale fonte di
 alimentazione e, quindi, non hanno bisogno di alcuna funzione di risparmio
 energetico. Tuttavia, in Wi-Fi Direct, il P2P GO, che funge da Soft-AP,
 può essere un dispositivo alimentato a batteria e ha una durata limitata.
 Quindi,
 Wi-Fi Direct introduce due nuovi schemi per il risparmio energetico nei
-dispositivi P2P. Questi schemi sono: (1) Opportunistic Power Save
-(OppPS) e (2) Notice of Absence (NoA). Nello schema OppPS, il GO è
+dispositivi P2P. Questi schemi sono: (1) \textsc{Opportunistic Power Save}
+(OppPS) e (2) \textsc{Notice of Absence} (NoA). Nello schema OppPS, il GO è
 autorizzato a risparmiare energia quando i suoi clienti sono in
 modalità Sleep. Il GO annuncia il suo periodo di presenza chiamato
 "CTWindow". Alla fine della CTWindow, se tutti i nodi sono in modalità

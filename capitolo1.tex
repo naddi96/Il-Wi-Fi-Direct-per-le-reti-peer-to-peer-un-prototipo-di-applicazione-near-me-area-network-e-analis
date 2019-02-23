@@ -2,7 +2,6 @@
 
 
 \section{Near-Me Area Network}
-
 Internet utilizza diversi tipi di reti di comunicazione. Una rete
 locale (LAN) copre una piccola area geografica, come una scuola o
 un'azienda; una rete area metropolitana (MAN) di solito si estende su
@@ -24,7 +23,6 @@ infrastrutture di rete proprietarie (ad esempio, diversi operatori di telefonia
 mobile). Quindi, anche se due dispositivi sono geograficamente vicini, il
 percorso di comunicazione tra loro potrebbe, infatti, attraversare una lunga
 distanza, passando da una LAN, attraverso Internet, e ad un'altra LAN.
-
 Sebbene i dispositivi mobili abbiano fornito servizi di localizzazione da
 molto tempo. Il concetto di NAN e le loro applicazioni sono emersi solo di
 recente. Utilizzando la
@@ -47,7 +45,6 @@ peer-to-peer sono generalmente più semplici ma in genere non offrono le stesse
 prestazioni in presenza di carichi pesanti. La stessa rete P2P fa affidamento
 sulla potenza di calcolo alle estremità di una connessione anziché all'interno
 della stessa rete.
-
 Il P2P viene spesso erroneamente utilizzato come termine per descrivere un
 utente che si collega con un altro utente per trasferire informazioni e file
 attraverso l'uso di un client P2P comune per scaricare MP3, video, immagini,
@@ -91,24 +88,49 @@ semplicemente altri utenti di Internet utilizzando lo stesso programma e li
 informa della tua presenza online, costruendo una vasta rete di computer man
 mano che più utenti installano e utilizzano il software.
 
-\subsection{Wi-Fi Direct per le reti peer to peer}
+\subsection{è possibile usare il Wi-Fi per 
+implementare reti peer to peer senza basarci sulla rete internet?}
 
-Il Wi-Fi Direct anche chiamato Wi-fi peer to peer è una tecnologia
-relativamente nuova.
-Vendendo le specifiche teoricamente sarebbe possibile creare una rete
-peer to peer in quanto un dispositivo si potrebbe connettere a due
-gruppi differenti (nello stesso momento) ed andare a formare una
-vera e propria rete,
-ma in android (alla versione attuale 9) questa cosa non è supportata
-quindi per aggirare questa limitazione un dispositivo si dovrebbe
-connettere prima a un gruppo "A" poi nel momento in cui si vuole
-connettere a un gruppo "B"
-si deve disconnettere da "A" e connettersi a "B".
-Il prototipo di scambio di messaggi proposto in questo studio di
-tesi prevede lo scambio di messaggi tra due dispositivi "A" e "B"
-nello stesso istante di
-tempo se il dispositivo "A" vuole scambiare messaggi con un altro dispositivo "C"
-si deve disconnettere da "B" e connettersi a "C".
-Nel capitolo seguente andremo ad analizzare le specifiche del Wi-Fi Direct.
+Wi-Fi  è una tecnologia per reti locali senza
+fili (WLAN). 
+I dispositivi che possono utilizzare la tecnologia Wi-Fi includono 
+personal computer, console per videogiochi, smartphone e tablet,
+fotocamere digitali, smart TV, lettori audio digitali e stampanti moderne.
+In generale il Wi-Fi è usato dai dispositivi 
+ai fini di ottenere un accesso internet senza l'utilizzo di un cavo,
+connettedosi a un Access Point connesso a internet.
+Il nostro goal non è connettersi a internet ma piuttosto andare
+a formare una rete distribuita attraverso il Wi-Fi 
+composta esclusivamente da dispositivi mobili.
+Nei prossimi capitoli al fine di capire la fattibilità
+di questo goal,
+andremo ad analizzare le specifiche di un protoccolo
+proggettato appositamente per la comunicazione Diretta 
+tra dispositivi mobili basato appunto sul Wi-Fi, il Wi-Fi Direct.
+per analizzare in pratica 
+la fattibiltà del goal invece è stata sviluppata un'app Android per 
+lo scambio di messaggi che usa questo protocollo.
+Al termine di questa tesi saremo in
+grado di rispondere in modo esaustivo a questa domanda.
+
+
+
+
+
+%gruppi differenti (nello stesso momento) ed andare a formare una
+%vera e propria rete,
+%ma dall'esprienza acquisita dallo sviluppo dell'app Android per lo scambio di messaggi 
+%(di cui parliamo nel capitolo 3) attraverso il Wi-Fi Direct 
+%in Android (alla versione attuale 9) questa cosa non è supportata
+%quindi per aggirare questa limitazione un dispositivo si dovrebbe
+%connettere prima a un gruppo "A" poi nel momento in cui si vuole
+%connettere a un gruppo "B"
+%si deve disconnettere da "A" e connettersi a "B".
+%Il prototipo di scambio di messaggi proposto in questo studio di
+%tesi prevede lo scambio di messaggi tra due dispositivi "A" e "B"
+%nello stesso istante di
+%tempo se il dispositivo "A" vuole scambiare messaggi con un altro dispositivo "C"
+%si deve disconnettere da "B" e connettersi a "C".
+%Nel capitolo seguente andremo ad analizzare le specifiche del Wi-Fi Direct.
 
 

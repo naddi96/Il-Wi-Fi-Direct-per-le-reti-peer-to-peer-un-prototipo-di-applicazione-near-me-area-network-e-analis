@@ -18,8 +18,6 @@
 
 \section{Wi-Fi Direct in android}
 
-
-
 Google ha annunciato il supporto Wi-Fi Direct su Android 4.0 (livello API 14)a ottobre 2011
 \cite{wikiDi} e si trova su tutte le versione di android successive.
 Le specifiche del Wi-fi Direct, come abbiamo visto nel capitolo 3,
@@ -30,17 +28,14 @@ nello stesso istante di tempo,
 di conseguenza se ci si vuole connettere a un'altro gruppo
 bisogna disconnettersi da quello a cui si è connessi, riavviare la fase di discovery
 e connettersi a gruppo desiderato.
-
 Il Wi-Fi P2P su Android a livello implementativo, è composto da un insieme di
 funzioni disponibili al programmatore, chiamate API e che sono divise in tre parti
 principali:
-
 \begin{figure}
    \centering
    \caption{metodi principali della classe WifiP2pManager}
    \includegraphics[width=1\columnwidth]{imgs/wifip2pmanagerMet.jpg}
 \end{figure}
-
 \begin{itemize}
    \item tutti i metodi definiti nella classe WifiP2pManager che
    consentono la scansione,
@@ -65,10 +60,8 @@ accadono in un preciso istante.
    \includegraphics[width=1\columnwidth]{imgs/listenerwifip2pmanager.jpg}
 \end{figure}
 
-
-
-
 \section{Funzionamento}
+
 \begin{figure}
    \centering
    \caption{inizio fase di scan}
@@ -76,24 +69,22 @@ accadono in un preciso istante.
 \end{figure}
 ho utilizzato le API di Android Software Development Kit (SDK)
 in Android Studio \cite{ASD} per lo sviluppo di questa applicazione
+
 \subsection{Descrizione alto livello}
 
-
-L'applicazione prevede la comunicazione tra due dispositivi android,
+applicazione prevede la comunicazione tra due dispositivi android,
 quest'ultimi entrano nella fase di discovery e una volta che si sono trovati
 possono instaurare una connessione,
 che una volta stabilita aprirà un canale di comunicazione bidirezionale tra i due.
 I due dispositivi adesso possono scambiare i messaggi.
 
-
 \subsection{Fase di scan}
+
 \begin{figure}
    \caption{listener dei peer}
    \centering
    \includegraphics[width=1\columnwidth]{imgs/peerListener.png}% Example image
 \end{figure}
-
-
 per iniziare la fase di scan si utilizza mManager, un
 oggetto che abbiamo istanziato nella MainActivity
 di tipo WifiP2pManager,questa classe ci fornisce le API per gestire le connessioni
@@ -106,10 +97,7 @@ interno al dispositivo e lo
 visualizza su schermo insieme agli altri, il codice è mostrato
 in figura 3.4
 
-
 \subsection{Instaurazione della connessione e selezione del Go}
-
-
 
 Una volta che l'utente ha su schermo la lista dei dispositivi
 vicini può scegliere il dispositivo con il quale comunicare
@@ -120,39 +108,37 @@ della classe "WifiP2pManager" si vede dalla figura 3.5.
    \caption{richiesta connessione}
    \includegraphics[width=1\columnwidth]{imgs/Connect.png}
 \end{figure}
-
 Dopo di che entra in gioco il listener della connessione.
 In quest'ultimo verrà scelta la classe da avviare
 (client o server)in base al dispositivo che è
 diventato GO come si vede nel codice in figura 3.6.
-
 \begin{figure}
    \caption{}
    \includegraphics[width=1\columnwidth]{imgs/listenerConeessione.png}
 \end{figure}
 
 \subsection{Scambio di messaggi}
+
 \subsubsection{Server Class}
+
 Nel caso al dispositivo assume il ruolo del GO
 viene istanziato un oggetto della  classe ServerClass,
 che accetta una connessione sulla porta 8888
 attraverso una serverSocket che sarà utilizzata per comunicare
 attraverso la classe SendReceive come vedremo più avanti
-
 \begin{figure}
    \caption{server class}
    \includegraphics[width=0.8\columnwidth]{imgs/serverClass.png}
    \centering
 \end{figure}
 
-
 \subsubsection{Client Class}
+
 Invece nel caso il dispositivo non assume il ruolo del GO
 viene istanziato un oggetto della classe ClientClass,
 che prova a connettersi all'indirizzo del GO sulla porta 8888 attraverso
 una socket che sarà utilizzata per comunicare
 attraverso la classe SendReceive come vedremo più avanti.
-  
 \begin{figure}
    \caption{client class}
    \includegraphics[width=1\columnwidth]{imgs/clientClass.png}
@@ -161,6 +147,7 @@ attraverso la classe SendReceive come vedremo più avanti.
 
 
 \subsubsection{Scambio di messaggi attraverso SendReceive}
+
 SendReceive si occupa di inviare i messaggi all'altro dispositivo
 e di riceverli;
 per inviarli utilizza il metodo write che scrive
@@ -170,6 +157,7 @@ della socket
 
 
 \subsection{Crittografia usata}
+
 Sebbene Wi-Fi Direct utilizza  che usa una crittografia di tipo
 AES \cite{Wi-FiProtected}
 nell'app si è voluto aggiungere un ulteriore layer di crittografia
@@ -195,7 +183,6 @@ invece ce ne sono 4:
        \caption{costruttore della classe Cript}
        \includegraphics[width=1\columnwidth]{imgs/Criptconstructor.jpg}
    \end{figure}
-
    \item setHisKey() prende in input la chiave pubblica dell'altro dispositivo
    encodata in base64 ne fa il decode la memorizza all'interno dell'oggetto
    nel campo "hispub".
@@ -203,17 +190,13 @@ invece ce ne sono 4:
        \caption{setter del campo hispub}
        \includegraphics[width=1  \columnwidth]{imgs/sethiskey.jpg}
    \end{figure}
-
-
-
-   \item encript() prende in input il messaggio da criptare e lo cripta con la
+  \item encript() prende in input il messaggio da criptare e lo cripta con la
    chiave pubblica dell'altro dispositivo e ritorna il messaggio criptato
    encodato in base64.
    \begin{figure}
        \caption{metodo per criptare il messaggio}
        \includegraphics[width=0.8  \columnwidth]{imgs/encript.jpg}
    \end{figure}
-
    \item decript() prende in input il messaggio da decriptare encodato in base64
    e lo decripta con
    la sua chiave privata e ritorna il messaggio decriptato.
@@ -221,18 +204,15 @@ invece ce ne sono 4:
        \caption{metodo per decriptare il messaggio}
        \includegraphics[width=1  \columnwidth]{imgs/decript.jpg}
    \end{figure}
-
-
-
 \end{itemize}
 
 \subsubsection{scambio chiavi pubbliche dei dispositivi}
+
 Una volta che I dispositivi si sono connessi e hanno istanziato
 rispettivamente la classe server e client sono pronti a scambiarsi i messaggi
 e il primo messaggio che si scambiano in modo automatico è la loro chiave pubblica
 questo senza che l'utente si accorga di nulla.
 la coppia di chiavi pubblica e privata vengono generate a ogni nuova connessione.
-
 
 \section{Analisi del Wi-Fi Direct}
 
@@ -240,13 +220,18 @@ Dall'esperienza acquisita sviluppando questo prototipo di app è emerso
 che il Wi-Fi Direct risulta ottimo per connettere i dispositivi singolarmente
 fornendo velocità di trasmissione standard del wifi questa cosa è stata confermata
 anche dai test effettuati sul campo che mostreremo più avanti,
-mentre nonè adatto a formare una rete di dispositivi connessi in quanto
-come già spiegato in precedenza in android non è permessa la connessione
-del dispositivo a due Gruppi differenti nello stesso momento.
-Dai test si è osservato che il tempo di discovery e quello di formazione del gruppo
+mentre non è adatto a formare una rete di dispositivi connessi in quanto
+come in android non è permessa la connessione  
+del dispositivo a due Gruppi differenti (cosa che nello standard non è limitata) 
+nello stesso momento,
+nel senso un dispositivo che è connesso a un Gruppo "A" 
+e desidera connettersi a un gruppo "B"  si deve disconnettere da "A" e connettersi a "B";
+di conseguenza non può neanche fare da ponte di comunicazione tra i due gruppi.
+Dai test sul campo ivece si è osservato che il tempo di discovery e quello di formazione del gruppo
 hanno mostrato risultati discordanti in quanto con l'aumento della distanza quest'ultimi
 impiegavano meno tempo, si noti però che durante lo sviluppo dell'app di messaggistica
-in alcuni casi la fase di discovery è arrivata a richiedere anche più 10 secondi.
+in alcuni casi la fase di discovery è arrivata a richiedere anche più 10 secondi risultando 
+però soddisfacenti nella maggioranza dei casi.
 I test che ho fatto inoltre hanno mostrato il limite della portata
 del Wi-Fi Direct si è osservato che fino a 64 metri
 (all'aperto e senza ostacoli) i dispositivi
@@ -260,6 +245,7 @@ Un altro limite del Wi-Fi Direct è il consumo di una batteria che risulta
 essere elevato.
 
 \subsubsection{I test effettuati}
+
 I test sono stati effettuati attraverso un'app sviluppata da me
 su due dispositivi rispettivamente,
 uno xiaomi redmi 5 pro e uno xiaomi redmi note 6, pro dove tengo
